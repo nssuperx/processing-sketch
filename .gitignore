@@ -8,3 +8,12 @@ application.windows32
 application.windows64
 application.macosx
 out
+
+# sound
+*.mp3
+*.wav
+*.ogg
+
+# font
+*.vlw
+
