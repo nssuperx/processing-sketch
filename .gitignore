@@ -9,11 +9,15 @@ application.windows64
 application.macosx
 out
 
-# sound
+# sound files
 *.mp3
 *.wav
 *.ogg
 
-# font
+# image files
+*.jpg
+*.png
+
+# font files
 *.vlw
 
