@@ -9,7 +9,7 @@ FFT fft;
 
 SpectrumSystem ss;
 
-final float decay = 3.0;
+final float decay = 4.0;
 final float wavegap = 0.0;
 final int sw = 2;            //strokeWeight
 final int amplifier = 16;
@@ -18,10 +18,12 @@ void setup(){
   size(1280, 800);
   //fullScreen();
   minim = new Minim(this);
-  player = minim.loadFile("../music/music5.mp3", 1024);
+  player = minim.loadFile("../music/music12.mp3", 1024);
   //player = minim.getLineIn(Minim.STEREO, 512);
   fft = new FFT(player.bufferSize(), player.sampleRate());
   fft.window(FFT.HAMMING);
+  println(fft.specSize());
+  println(fft.getBandWidth());
   player.play();
   ss = new SpectrumSystem();
   for(int i = 0; i < fft.specSize(); i++){
@@ -76,9 +78,14 @@ class Spectrum {
   void run(int i){
     stroke(col,100,100);
     strokeWeight(sw);
-    now = max((fft.getBand(i) * amplifier),buffer);
+    //now = max(20*(float)Math.log10(fft.getBand(i) * amplifier) * 5,buffer);
+    now += 20*(float)Math.log10(fft.getBand(i) * amplifier);
+    now /= 1.2;
+    if(now < 0){
+      now = 0;
+    }
     line(x, 0, x, now);
     line(x, 0, x, -now);
-    buffer = now - decay;
+    //buffer = now - decay;
   }
 }

@@ -11,7 +11,7 @@ void setup(){
   size(1024, 400);
  
   minim = new Minim(this);
-  player = minim.loadFile("../music/music.mp3", 512);
+  player = minim.loadFile("../music/music3.mp3", 512);
   fft = new FFT(player.bufferSize(), player.sampleRate());
   fft.window(FFT.HAMMING);
   player.play();
