@@ -42,11 +42,10 @@ void setup(){
  
 void draw(){
   background(0);
-  //translate(0,height/2);
   translate(0,height);
   fft.forward(player.mix);
   ss.run();
-  //saveFrame("frames/######.tif");
+  //saveFrame("frames/######.png");
 }
  
 void stop(){
@@ -96,9 +95,9 @@ class Spectrum {
     if(now < baseY){
       now = baseY;
     }
+    buffer = now / decay;
     //line(x, 0, x, now);
     line(x, 0, x, -now);
     line(width-x, 0, width-x, -now);
-    buffer = now / decay;
   }
 }
