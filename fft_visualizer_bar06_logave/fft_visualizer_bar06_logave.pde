@@ -13,6 +13,7 @@ final float decay = 1.25;
 final float wavegap = 0.0;
 final float sw = 1.5;           //strokeWeight
 final int amplifier = 1;
+final float baseY = height/32;
 //logAverages parameters
 final int minBandwidth = 300;
 final int bandsPerOctave = 20;
@@ -92,8 +93,8 @@ class Spectrum {
     now = max((fft.getAvg(i) * amplifier),buffer);
     //now += 20 * (float)Math.log10(fft.getAvg(i) * amplifier);
     //now /= decay;
-    if(now < 0){
-      now = 0;
+    if(now < baseY){
+      now = baseY;
     }
     //line(x, 0, x, now);
     line(x, 0, x, -now);
