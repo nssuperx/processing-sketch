@@ -17,7 +17,11 @@ out
 # image files
 *.jpg
 *.png
+*.tif
 
 # font files
 *.vlw
+
+# output image folder
+frames
 
