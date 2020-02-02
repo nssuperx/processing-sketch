@@ -14,18 +14,19 @@ final float wavegap = 0.0;
 final int sw = 2;            //strokeWeight
 final int amplifier = 16;
 final int select[] = {3, 30, 50, 100, 250};
+final int maxIndexNum = 10;
 
 void setup() {
   size(1280, 800);
   //fullScreen();
   minim = new Minim(this);
-  player = minim.loadFile("../music/music12.mp3", 1024);
+  player = minim.loadFile("../music/music14.mp3", 1024);
   //player = minim.getLineIn(Minim.STEREO, 512);
   fft = new FFT(player.bufferSize(), player.sampleRate());
   fft.window(FFT.HAMMING);
   println(fft.specSize());
   println(fft.getBandWidth());
-  player.setGain(-20);
+  //player.setGain(-20);
   player.play();
   ss = new SpectrumSystem();
   for (int i = 0; i < fft.specSize(); i++) {
@@ -60,14 +61,19 @@ class SpectrumSystem {
   }
 
   void run() {
-    int maxIndex = 0;
+    int maxIndex[] = new int[maxIndexNum];
     for (int i = 1; i < spectrums.size(); i++) {
-      if (fft.getBand(maxIndex) < fft.getBand(i)) {
-        maxIndex = i;
+      for (int j = 0; j<maxIndex.length; j++) {
+        if (fft.getBand(maxIndex[j]) < fft.getBand(i)) {
+          maxIndex[j] = i;
+          break;
+        }
       }
     }
-    Spectrum max = spectrums.get(maxIndex);
-    max.setEnable();
+    for (int i = 0; i<maxIndex.length; i++) {
+      Spectrum max = spectrums.get(maxIndex[i]);
+      max.setEnable();
+    }
     for (int i = 1; i < spectrums.size(); i++) {
       Spectrum s = spectrums.get(i);
       s.run();
