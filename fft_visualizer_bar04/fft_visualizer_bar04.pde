@@ -9,13 +9,14 @@ FFT fft;
 
 SpectrumSystem ss;
 
-final float decay = 1.15;
+final float decay = 1.2;
 final float wavegap = 0.0;
-final int sw = 2;            //strokeWeight
-final int amplifier = 16;
+final int sw = 4;           //strokeWeight
+final int amplifier = 1;
  
 void setup(){
   size(1280, 800);
+  frameRate(60);
   //fullScreen();
   minim = new Minim(this);
   player = minim.loadFile("../music/music14.mp3",1024);
@@ -25,9 +26,11 @@ void setup(){
   println(fft.specSize());
   println(fft.getBandWidth());
   //player.setGain(-20);
+  fft.logAverages(100,10);
+  //fft.linAverages(50);
   player.play();
   ss = new SpectrumSystem();
-  for(int i = 0; i < fft.specSize(); i++){
+  for(int i = 0; i < fft.avgSize(); i++){
     ss.addSpectrum(i);
   }
   colorMode(HSB,360,100,100,100);
@@ -70,8 +73,8 @@ class Spectrum {
   float buffer,now;
   
   Spectrum(int i){
-    col = map(i,0,fft.specSize(),0,360);
-    x = map((i + wavegap) % fft.specSize(), 0, fft.specSize(), 0, width);
+    col = map(i,0,fft.avgSize(),0,360);
+    x = map((i + wavegap) % fft.avgSize(), 0, fft.avgSize(), 0, width);
     buffer = 0;
     now = 0;
   }
@@ -79,14 +82,14 @@ class Spectrum {
   void run(int i){
     stroke(col,100,100);
     strokeWeight(sw);
-    //now = max(20*(float)Math.log10(fft.getBand(i) * amplifier) * 5,buffer);
-    now += 20*(float)Math.log10(fft.getBand(i) * amplifier);
-    now /= decay;
+    now = max((fft.getAvg(i) * amplifier),buffer);
+    //now += 20*(float)Math.log10(fft.getAvg(i) * amplifier);
+    //now /= decay;
     if(now < 0){
       now = 0;
     }
     line(x, 0, x, now);
     line(x, 0, x, -now);
-    //buffer = now - decay;
+    buffer = now / decay;
   }
 }

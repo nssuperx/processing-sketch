@@ -18,7 +18,7 @@ void setup(){
   size(1280, 800);
   //fullScreen();
   minim = new Minim(this);
-  player = minim.loadFile("../music/music5.mp3", 1024);
+  player = minim.loadFile("../music/music14.mp3", 1024);
   //player = minim.getLineIn(Minim.STEREO, 512);
   fft = new FFT(player.bufferSize(), player.sampleRate());
   fft.window(FFT.HAMMING);

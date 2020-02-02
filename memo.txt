@@ -1,0 +1,2 @@
+http://code.compartmental.net/minim/fft_method_logaverages.html
+
