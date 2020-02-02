@@ -84,7 +84,7 @@ class Spectrum {
     stroke(col,100,100);
     strokeWeight(sw);
     now = max((fft.getAvg(i) * amplifier),buffer);
-    //now += 20*(float)Math.log10(fft.getAvg(i) * amplifier);
+    //now += 20 * (float)Math.log10(fft.getAvg(i) * amplifier);
     //now /= decay;
     if(now < 0){
       now = 0;
