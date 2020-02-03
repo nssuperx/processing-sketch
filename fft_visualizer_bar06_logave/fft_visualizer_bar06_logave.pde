@@ -15,8 +15,8 @@ final float sw = 1.5;           //strokeWeight
 final int amplifier = 1;
 final float baseY = height/32;
 //logAverages parameters
-final int minBandwidth = 300;
-final int bandsPerOctave = 20;
+final int minBandwidth = 40;
+final int bandsPerOctave = 3;
 
 void setup(){
   size(1200, 200);
